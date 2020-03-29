@@ -1,12 +1,18 @@
 const express = require('express')
 const mongoose = require("mongoose")
 const dotenv = require('dotenv')
+const cookieParser = require("cookie-parser")
+const userRoute = require('./routes/user')
+
 
 const server = express()
 const port = process.env.PORT || 5000
 
 dotenv.config()
 server.use(express.json())
+server.use(cookieParser())
+
+server.use("/api", userRoute)
 
 server.get(`/`, (req, res) => {
     res.send("Welcome to my API")
